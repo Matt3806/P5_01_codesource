@@ -1,13 +1,13 @@
 fetch ("http://localhost:3000/api/products")
 .then (data => data.json())
-.then (jsonListKanap => {
-    //console.log(jsonListKanap);
-    for (let jsonKanap of jsonListKanap){
-        document.querySelector(".items").innerHTML += ` <a href="./product.html?id=${jsonKanap._id}">
+.then (jsonListProduct => {
+    //console.log(jsonListProduct);
+    for (let jsonProduct of jsonListProduct){
+        document.querySelector(".items").innerHTML += ` <a href="./product.html?id=${jsonProduct._id}">
                                                             <article>
-                                                            <img src="${jsonKanap.imageUrl}" alt="${jsonKanap.altTxt}">
-                                                            <h3 class="productName">${jsonKanap.name}</h3>
-                                                            <p class="productDescription">${jsonKanap.description}</p>
+                                                            <img src="${jsonProduct.imageUrl}" alt="${jsonProduct.altTxt}">
+                                                            <h3 class="productName">${jsonProduct.name}</h3>
+                                                            <p class="productDescription">${jsonProduct.description}</p>
                                                             </article>
                                                         </a> `
     }
