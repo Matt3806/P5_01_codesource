@@ -11,29 +11,34 @@ fetch ("http://localhost:3000/api/products/" + id)
         for (let productSelectColor of product.colors){
             document.querySelector("#colors").innerHTML += `<option value="${productSelectColor}">${productSelectColor}</option>`
         };
-});
-
+    });
 
 
 document.querySelector("#addToCart").addEventListener("click", function(){
-
-    const productLinea = JSON.parse(localStorage.getItem('product')) || []
     
-    
-    
-
-    let colors = document.getElementById('colors').value
-    let quantity = document.getElementById('quantity').value
-
-    const product = {
-        idProduct : id,
-        colorProct : colors,
-        quantityProduct : quantity,
+    const colors = document.getElementById('colors').value
+    const quantity = document.getElementById('quantity').value
+    const quantityNumber = parseInt(quantity)
+    const warning = document.querySelector(".item__content__settings").insertAdjacentHTML("afterbegin",`<style>
+    .item__content__settings{
+        background-color:red;
     }
+       `)
     
-        productLinea.push(product)
-    
-
-    localStorage.setItem("product", JSON.stringify(productLinea))
-    window.location.assign("cart.html")
+    const product = {
+        id: id,
+        color : colors,
+        quantity : quantityNumber,
+    }
+    if(product.color == ""){
+        warning
+    }else if(product.quantity <= 0 ) {
+        warning
+        } else if(product.quantity > 100 ) {
+        warning
+    }else{
+        addBasket(product)  
+        window.location.assign("cart.html")
+    }
 })
+
