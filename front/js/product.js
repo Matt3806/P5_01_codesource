@@ -11,34 +11,39 @@ fetch ("http://localhost:3000/api/products/" + id)
         for (let productSelectColor of product.colors){
             document.querySelector("#colors").innerHTML += `<option value="${productSelectColor}">${productSelectColor}</option>`
         };
+        document.querySelector("#addToCart").addEventListener("click", function(){
+    
+            const colors = document.getElementById('colors').value
+            const quantity = document.getElementById('quantity').value
+            const quantityNumber = parseInt(quantity)
+            const warning = document.querySelector(".item__content__settings").insertAdjacentHTML("afterbegin",`<style>
+            .item__content__settings{
+                background-color:red;
+            }
+               `)
+            
+            const productId = {
+                id: id,
+                name: product.name,
+                color : colors,
+                quantity : quantityNumber,
+                price : product.price,
+                image : product.imageUrl,
+                altTxt : product.altTxt, 
+            }
+            if(productId.color == ""){
+                warning
+            }else if(productId.quantity <= 0 ) {
+                warning
+                } else if(productId.quantity > 100 ) {
+                warning
+            }else{
+                addBasket(productId)  
+                window.location.assign("cart.html")
+            }
+        })        
     });
 
 
-document.querySelector("#addToCart").addEventListener("click", function(){
-    
-    const colors = document.getElementById('colors').value
-    const quantity = document.getElementById('quantity').value
-    const quantityNumber = parseInt(quantity)
-    const warning = document.querySelector(".item__content__settings").insertAdjacentHTML("afterbegin",`<style>
-    .item__content__settings{
-        background-color:red;
-    }
-       `)
-    
-    const product = {
-        id: id,
-        color : colors,
-        quantity : quantityNumber,
-    }
-    if(product.color == ""){
-        warning
-    }else if(product.quantity <= 0 ) {
-        warning
-        } else if(product.quantity > 100 ) {
-        warning
-    }else{
-        addBasket(product)  
-        window.location.assign("cart.html")
-    }
-})
+
 
