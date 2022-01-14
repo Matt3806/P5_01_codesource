@@ -1,6 +1,5 @@
-
-
   let basket = getBasket()
+
 
     for(let product of basket){
 
@@ -27,24 +26,21 @@
                         </div>
                       </div>
                     </article>`
-                    
-                    console.log(product)
-                    document.querySelector(".deleteItem").addEventListener("click", function(){
-                    removeFromBasket(product)
-                    window.location.assign("cart.html")
-                    })
-
-                  
+                                      
     }
 
+    document.querySelectorAll(".deleteItem").forEach(item => item.addEventListener("click", (e) => {
+        let deletItem = e.target.closest('[data-id]')
+        let product =  deletItem.dataset
+        removeFromBasket(product)
+        window.location.assign("cart.html")
+        }) );
+
+  
 
 
-    function removeFromBasket (product) {
-      let basket = getBasket()
-      basket = basket.filter( p => p.id != product.id)
-      saveBasket(basket)
-  }
 
-    document.querySelector("#totalQuantity").insertAdjacentHTML("afterbegin",`${getNumberProduct()} `);
-    document.querySelector("#totalPrice").insertAdjacentHTML("afterbegin",`${getTotalPrice()} `);
 
+
+document.querySelector("#totalQuantity").insertAdjacentHTML("afterbegin", `${getNumberProduct()} `);
+document.querySelector("#totalPrice").insertAdjacentHTML("afterbegin", `${getTotalPrice()} `);

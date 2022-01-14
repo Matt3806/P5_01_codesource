@@ -23,7 +23,7 @@ fetch ("http://localhost:3000/api/products/" + id)
                `)
             
             const productId = {
-                id: id,
+                id: id + colors,
                 name: product.name,
                 color : colors,
                 quantity : quantityNumber,
@@ -31,6 +31,7 @@ fetch ("http://localhost:3000/api/products/" + id)
                 image : product.imageUrl,
                 altTxt : product.altTxt, 
             }
+            
             if(productId.color == ""){
                 warning
             }else if(productId.quantity <= 0 ) {
