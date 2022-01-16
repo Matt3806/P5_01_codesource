@@ -16,12 +16,7 @@ fetch ("http://localhost:3000/api/products/" + id)
             const colors = document.getElementById('colors').value
             const quantity = document.getElementById('quantity').value
             const quantityNumber = parseInt(quantity)
-            const warning = document.querySelector(".item__content__settings").insertAdjacentHTML("afterbegin",`<style>
-            .item__content__settings{
-                background-color:red;
-            }
-               `)
-            
+
             const productId = {
                 id: id + colors,
                 name: product.name,
@@ -33,7 +28,12 @@ fetch ("http://localhost:3000/api/products/" + id)
             }
             
             if(productId.color == ""){
-                warning
+                const warning = document.querySelector(".item__content__settings").insertAdjacentHTML("afterbegin",`<style>
+                .item__content__settings{
+                    background-color:red;
+                }
+                   `)
+                
             }else if(productId.quantity <= 0 ) {
                 warning
                 } else if(productId.quantity > 100 ) {

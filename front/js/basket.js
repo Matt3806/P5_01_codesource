@@ -13,7 +13,7 @@ function getBasket() {
 
 function addBasket(product) {
     let basket = getBasket()
-    let foundProduct = basket.find(p => p.id == product.id ) && basket.find(p => p.color == product.color)
+    let foundProduct = basket.find(p => p.id == product.id ) 
     if(foundProduct != undefined)  {
         foundProduct.quantity += product.quantity 
         }else{

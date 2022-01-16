@@ -36,11 +36,37 @@
         window.location.assign("cart.html")
         }) );
 
+        document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener("change", (e) => {
+            let quantity = e.target.closest('.itemQuantity').value
+            let quantityNumber = parseInt(quantity)
+            let deletItem = e.target.closest('[data-id]')
+            let product =  deletItem.dataset
+
+            productID = {
+                id :product.id,
+                quantity :quantityNumber
+            }
+            addQuantity(productID)
+
+        }))
   
 
+        function addQuantity(product) {
+            let basket = getBasket()
+            let foundProduct = basket.find(p => p.id == product.id ) 
+            if(foundProduct != undefined)  {
+                foundProduct.quantity = product.quantity
+                }
+        
+                saveBasket(basket)
+                setTotal()
+        }
 
+function setTotal (){
 
+    document.querySelector("#totalQuantity").insertAdjacentHTML("afterbegin", `${getNumberProduct()}`)
+    document.querySelector("#totalPrice").insertAdjacentHTML("afterbegin", `${getTotalPrice()}`)
+  
+}
 
-
-document.querySelector("#totalQuantity").insertAdjacentHTML("afterbegin", `${getNumberProduct()} `);
-document.querySelector("#totalPrice").insertAdjacentHTML("afterbegin", `${getTotalPrice()} `);
+setTotal()
