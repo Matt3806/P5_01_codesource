@@ -47,6 +47,7 @@
                 quantity :quantityNumber
             }
             addQuantity(productID)
+            window.location.assign("cart.html")
 
         }))
   
@@ -59,14 +60,12 @@
                 }
         
                 saveBasket(basket)
-                setTotal()
+                setTotal()     
         }
 
 function setTotal (){
-
     document.querySelector("#totalQuantity").insertAdjacentHTML("afterbegin", `${getNumberProduct()}`)
     document.querySelector("#totalPrice").insertAdjacentHTML("afterbegin", `${getTotalPrice()}`)
-  
 }
 
 setTotal()
