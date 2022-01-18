@@ -2,26 +2,30 @@ function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
 
+function saveCustomer(customer){
+    localStorage.setItem("customer", JSON.stringify(customer))
+}
+
 function getBasket() {
     let basket = localStorage.getItem("basket")
-    if (basket == null){
+    if (basket == null) {
         return []
-    }else{
+    } else {
         return JSON.parse(basket)
     }
 }
 
 function addBasket(product) {
     let basket = getBasket()
-    let foundProduct = basket.find(p => p.id == product.id ) 
-    if(foundProduct != undefined)  {
-        foundProduct.quantity += product.quantity 
-        }else{
-        
-            basket.push(product)
-        }
+    let foundProduct = basket.find(p => p.id == product.id)
+    if (foundProduct != undefined) {
+        foundProduct.quantity += product.quantity
+    } else {
 
-        saveBasket(basket)
+        basket.push(product)
+    }
+
+    saveBasket(basket)
 }
 
 function removeFromBasket(product) {
@@ -30,19 +34,19 @@ function removeFromBasket(product) {
     saveBasket(basket)
 }
 
-function getNumberProduct () {
+function getNumberProduct() {
     let basket = getBasket()
     let number = 0
-    for (let product of basket ) {
+    for (let product of basket) {
         number += product.quantity
     }
     return number
 }
 
-function getTotalPrice(){
+function getTotalPrice() {
     let basket = getBasket()
     let total = 0
-    for (let product of basket){
+    for (let product of basket) {
         total += product.quantity * product.price
     }
     return total
