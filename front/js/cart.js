@@ -1,4 +1,8 @@
+// recupération du localStorage 
+
 let basket = getBasket()
+
+// création de chaque éléments avec interpolation de variable
 
 for (let product of basket) {
 
@@ -27,12 +31,16 @@ for (let product of basket) {
                           </article>`
 }
 
+// suppression de l'élément ciblé au click 
+
 document.querySelectorAll(".deleteItem").forEach(item => item.addEventListener("click", (e) => {
     let deletItem = e.target.closest('[data-id]')
     let product = deletItem.dataset
     removeFromBasket(product)
     window.location.assign("cart.html")
 }));
+
+// modification de l'élément ciblé au changement 
 
 document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener("change", (e) => {
     let quantity = e.target.closest('.itemQuantity').value
@@ -44,6 +52,9 @@ document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener
         id: product.id,
         quantity: quantityNumber
     }
+
+// suppression de l'élément ciblé en cas d'anomalie 
+
     if (quantityNumber <= 0 ){
         removeFromBasket(productID)
         window.location.assign("cart.html")
@@ -51,78 +62,22 @@ document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener
         removeFromBasket(productID)
         window.location.assign("cart.html")
     }else {
+
+// ajout de la quantité s'il n'y a pas d'anomalie 
+
         addQuantity(productID)
     }
-    
-
 }))
 
-function addQuantity(product) {
-    let basket = getBasket()
-    let foundProduct = basket.find(p => p.id == product.id)
-    if (foundProduct != undefined) {
-        foundProduct.quantity = product.quantity
-    }
-
-    saveBasket(basket)
-    setTotalQuantity()
-    setTotalPrice()
-}
-
-function setTotalQuantity() {
-    let totalQuantity = document.getElementById('totalQuantity')
-    let newQuantity = document.createTextNode(`${getNumberProduct()}`)
-    if (newQuantity != undefined) {
-        totalQuantity.replaceChild(newQuantity, totalQuantity.childNodes[0])
-
-    } else {
-        totalQuantity.appendChild(newQuantity)
-    }
-
-
-}
-function setTotalPrice() {
-    let totalPrice = document.getElementById('totalPrice')
-    let newPrice = document.createTextNode(`${getTotalPrice()}`)
-    if (newPrice != undefined) {
-        totalPrice.replaceChild(newPrice, totalPrice.childNodes[0])
-    } else {
-        totalPrice.appendChild(newPrice)
-    }
-
-}
+// affichage de la quantité et du prix total
 
 setTotalQuantity()
 setTotalPrice()
 
+
+// verification du formulaire 
+
 let form = document.querySelector('.cart__order__form')
-
-  function validNameCity (inputName){
-    let nameRegexp = new RegExp (/^[a-z ,.'-]+$/i)
-
-    let testName = nameRegexp.test(inputName.value)
-    let messageName = inputName.nextElementSibling
-    if(testName){
-        messageName.innerHTML = ""
-        return true
-    }else{
-        messageName.innerHTML = "Invalide"
-        return false
-    }
-}
-
-  function validMail (inputMail){
-    let mailRegexp = new RegExp (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i)
-    let testMail = mailRegexp.test(inputMail.value)
-    let messageMail = inputMail.nextElementSibling
-    if(testMail){
-        messageMail.innerHTML = ""
-        return true
-    }else{
-        messageMail.innerHTML = "Invalide"
-        return false
-    }
-}
 
 form.firstName.addEventListener('change', function(){ 
 validNameCity(this)
@@ -140,6 +95,8 @@ form.email.addEventListener('change', function(){
     validMail(this)
 })
 
+// création de l'objet contact au submit si formulaire valide 
+
 form.addEventListener("submit", function(e) {
     e.preventDefault()
     const firstName = document.getElementById('firstName').value
@@ -148,7 +105,7 @@ form.addEventListener("submit", function(e) {
     const city = document.getElementById('city').value
     const email = document.getElementById('email').value
 
-    customer = {
+    contact = {
         firstName : firstName,
         lastName : lastName,
         address : address,
@@ -157,7 +114,7 @@ form.addEventListener("submit", function(e) {
     }
 
     if ( validNameCity(form.firstName) && validNameCity(form.lastName) && validNameCity(form.city) && validMail(form.email)){
-        saveCustomer(customer)
+        saveContact(contact)
         window.location.assign("confirmation.html")
     }else{
         alert("merci de remplir le formulaire pour passer votre commande")

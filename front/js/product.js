@@ -1,9 +1,13 @@
+// recupération du produit mentionné dans L'url 
+
 let id = (new URL(window.location).searchParams.get("id"));
 
 fetch("http://localhost:3000/api/products/" + id)
     .then(data => data.json())
+
+// affichage du produit et de ses opétions avec interpolation de variable
+
     .then(product => {
-        //console.log(kanap)
         document.querySelector(".item__img").insertAdjacentHTML("afterbegin", `<img src="${product.imageUrl}" alt="${product.altTxt}">`);
         document.querySelector("#title").insertAdjacentHTML("afterbegin", `${product.name}`);
         document.querySelector("#price").insertAdjacentHTML("afterbegin", `${product.price}`);
@@ -11,6 +15,9 @@ fetch("http://localhost:3000/api/products/" + id)
         for (let productSelectColor of product.colors) {
             document.querySelector("#colors").innerHTML += `<option value="${productSelectColor}">${productSelectColor}</option>`
         };
+
+// création de l'objet à envoyer dans le localStorage au click
+
         document.querySelector("#addToCart").addEventListener("click", function () {
 
             const colors = document.getElementById('colors').value
@@ -26,6 +33,8 @@ fetch("http://localhost:3000/api/products/" + id)
                 image: product.imageUrl,
                 altTxt: product.altTxt,
             }
+
+// alert en cas d'anomalie 
 
             if (productId.color == "") {
                 const warning = document.querySelector(".item__content__settings").insertAdjacentHTML("afterbegin", `<style>
@@ -50,12 +59,11 @@ fetch("http://localhost:3000/api/products/" + id)
                        `)
                 alert('merci de choisir une quantitée entre 1 et 100')
             } else {
+
+// envoi dans le localStorage et redirection vers la page panier 
+
                 addBasket(productId)
                 window.location.assign("cart.html")
             }
         })
     });
-
-
-
-
