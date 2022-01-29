@@ -95,7 +95,7 @@ form.email.addEventListener('change', function(){
     validMail(this)
 })
 
-// création de l'objet contact au submit si formulaire valide 
+// création de l'objet contact au submit si formulaire valide et redirection vers la page de confirmation
 
 form.addEventListener("submit", function(e) {
     e.preventDefault()

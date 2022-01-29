@@ -6,7 +6,6 @@ fetch("http://localhost:3000/api/products")
 // création de chaque éléments avec interpolation de variable
 
     .then(jsonListProduct => {
-        //console.log(jsonListProduct);
         for (let jsonProduct of jsonListProduct) {
             document.querySelector("#items").innerHTML += ` <a href="./product.html?id=${jsonProduct._id}">
                                                             <article>

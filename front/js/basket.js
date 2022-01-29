@@ -34,6 +34,8 @@ function addBasket(product) {
 
 function removeFromBasket(product) {
     let basket = getBasket()
+    // a tester 
+    // basket.filter(p => p.id !== product.id && p => p.color !== product.color)
     basket = basket.filter(p => p.id != product.id)
     saveBasket(basket)
 }

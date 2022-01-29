@@ -25,7 +25,8 @@ fetch("http://localhost:3000/api/products/" + id)
             const quantityNumber = parseInt(quantity)
 
             const productId = {
-                id: id + colors,
+                trueId : id,
+                id: id + "_" +colors,
                 name: product.name,
                 color: colors,
                 quantity: quantityNumber,
