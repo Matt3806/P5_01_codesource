@@ -26,7 +26,7 @@ fetch("http://localhost:3000/api/products/" + id)
 
             const productId = {
                 trueId : id,
-                id: id + "_" +colors,
+                id: id + "_" + colors,
                 name: product.name,
                 color: colors,
                 quantity: quantityNumber,

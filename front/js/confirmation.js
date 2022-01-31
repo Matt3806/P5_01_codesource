@@ -40,5 +40,7 @@ const apiParam = {
     }
 })
 
+// suppression du localStorage pour éviter les erreurs une fois la commande passé
 
+localStorage.clear()
 

@@ -2,6 +2,10 @@
 
 let basket = getBasket()
 
+if(basket.length ==  0){
+    alert("votre panier est vide")
+}
+
 // création de chaque éléments avec interpolation de variable
 
 for (let product of basket) {
@@ -74,7 +78,6 @@ document.querySelectorAll(".itemQuantity").forEach(item => item.addEventListener
 setTotalQuantity()
 setTotalPrice()
 
-
 // verification du formulaire 
 
 let form = document.querySelector('.cart__order__form')
@@ -105,6 +108,7 @@ form.addEventListener("submit", function(e) {
     const city = document.getElementById('city').value
     const email = document.getElementById('email').value
 
+
     contact = {
         firstName : firstName,
         lastName : lastName,
@@ -113,11 +117,23 @@ form.addEventListener("submit", function(e) {
         email : email
     }
 
-    if ( validNameCity(form.firstName) && validNameCity(form.lastName) && validNameCity(form.city) && validMail(form.email)){
+    if( validNameCity(form.firstName) == false){
+        alert("merci de renseigner votre Prénom")
+
+    }else if (validNameCity(form.lastName) == false){
+        alert("merci de renseigner votre Nom")
+
+    }else if (validNameCity(form.city) == false){
+        alert("merci de renseigner votre Ville")
+
+    }else if(validMail(form.email) == false){
+        alert("merci de renseigner votre Email")
+
+    }else if(basket.length == 0){
+        alert("votre panier est vide")
+        
+    }else{
         saveContact(contact)
         window.location.assign("confirmation.html")
-    }else{
-        alert("merci de remplir le formulaire pour passer votre commande")
-    }
-          
+    }          
 })
