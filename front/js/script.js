@@ -1,6 +1,6 @@
 // recupération du tableau de produit 
 
-fetch("http://localhost:3000/api/products")
+fetch("http://localhost:3000/api/product")
     .then(data => data.json())
 
 // création de chaque éléments avec interpolation de variable
